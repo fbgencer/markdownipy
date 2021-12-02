@@ -5,26 +5,80 @@ md = markdownipy.markdownipy()
 
 md << ("Markdownipy" | md.h1)
 md < ("markdownipy_logo.png" | md.image)
-md < "Markdownipy is a simple library to create fast markdown files using only two operators"
-md < " '<' sends text to markdown file, '|' just gives property to the text"
+md < "Markdownipy is a simple Python library to generate fast markdown files using only two operators and some helpers"
+md < " `<` writes text to markdown file, `|` just gives property to the text" | md.h2
 md < "Even this README file is written with markdownipy!"
+md < "./example.py" | md.link("Checkout example file")
 
 md < "Motivation" | md.h2
 md < md.hline
 md < """
-Lately, I'm trying to generate markdown documentations for different codes and I needed to put
-some specs, numbers etc. Instead of text manipulation I just wanted to make it as a library.
-Sometimes I also forget markdown syntax, so this library is intended as easy as its suppose to be.
+Lately, I'm trying to write markdown documentations for different codes and I needed to put
+some specs, numbers etc. so just copy-paste some tables, links.
+I was trying to change some predefined strings to speed up my writing process, yet
+instead of text manipulation I just wanted to make it as a library.
+
+Sometimes I also forget markdown syntax, so this library requires no memory (I hope so) :)
 """
 
-md < """
+#Quick start
+md < "Quick start" | md.h3
+c = """
+import markdownipy
+
 md = markdownipy.markdownipy()
-""" | md.codeb("python")
+
+#Simple line
+md < "Hello there!"
+
+#Bold text, numbers are also allowed
+md < 3.14159 | md.bold
+
+#Italic text
+md < "Above bold text is just some digits of pi" | md.italic
+
+#Lists 
+md < ["Item1","Item2","Item3"]
+
+#Tables
+md < {
+	"Country":["Fran","Kate","Ivan"],
+	"Age" : [30,48,73]
+}
+
+#E-mail, links
+md < "fbgencer8@gmail.com" | md.link
+md < "fbgencer8@gmail.com" | md.link("My mail")
+
+#Image
+md < "markdownipy_logo.png" | md.image
+
+#Writing to a file, README or README.md both works!
+md >> "README"
+"""
+md < c | md.codeb("python")
+md < md.hline
+md < md.hline
+
+
+
+
+#We will call this function for each section
+def add_section(section_name,section_note,code):
+	md < section_name | md.h3
+	md < section_note
+	md < code | md.codeb("python")
+	md < "Output :" | md.italic
+	md < md.hline
+	exec(code)
+	md < md.hline
+	md < md.hline	
 
 
 #Headers
-md < "Headers" | md.h3
-c = """
+add_section("Headers","",
+"""
+md < "This is a chapter" | md.chapter
 md < "This is header1" | md.h1
 md < "This is header2" | md.h2
 md < "This is header3" | md.h3
@@ -32,26 +86,20 @@ md < "This is header4" | md.h4
 md < "This is header5" | md.h5
 md < "This is header6" | md.h6
 """
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
+)
+
+
 
 #Text props
-md < "Bold, italic, strikethrough texts" | md.h3
-c = """
+add_section("Bold, italic, strikethrough texts","",
+"""
 md < "This should be a bold text" | md.bold
 md < "This is an italic text" | md.italic
 md < "Strikethrough is banned"  | md.strike
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
+""")
 
 #Lists
-md < "Lists" | md.h3
-c = """
+add_section("Lists","","""
 md < [
 	"Classical mechanics" | md.bold,
 	[
@@ -70,7 +118,15 @@ md < [
 			"Lists can be nested :)",
 			"This is another liner",
 			[
-				"Oh this is getting serious" | md.strike
+				"Oh this is getting serious" | md.strike,
+				"And now bunch of numbers",
+				[
+					3.1415,
+					2.7176,
+					99999,
+					88888
+				],
+				"Now another item"
 			],
 		],
 		"Quantum statistical mechanics"
@@ -79,99 +135,45 @@ md < [
 	"Condensed matter physics",
 	"High-energy particle physics and nuclear physics",
 ]
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
+""")
 
-
-# md.table()
 
 #Table
-md < "Table" | md.h3
-c = """
+add_section("Table","",
+"""
 md < {
 	"Name" : ["Albert", "Paul" | md.bold, "Richard"],
 	"Surname" : ["Einstein" | md.italic, "Dirac" , "Feynman" | md.italic],
 }
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
-
+""")
 
 
 #Link
-md < "Links" | md.h3
-c = """
-md < "https://github.com/fbgencer/markdownipy" | md.link("Markdownipy website")
+add_section("Links","",
 """
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
-
+md < "https://github.com/fbgencer/markdownipy" | md.link("Markdownipy website")
+""")
 
 #Image
-md < "Image" | md.h3
-c = """
+add_section("Image","","""
 md < ("markdownipy_logo.png" | md.image("Image name"))
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
-
+""")
 
 #Quote
-md < "Single line Quote" | md.h3
-c = """
+add_section("Single line Quote","","""
 md << ("With Great Power Comes Great Responsibility" | md.quote)
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
+""")
+
 
 
 #Task lists
-md < "Task lists" | md.h3
-c = """
+add_section("Task lists","",
+"""
 md < ["-", 
 	"Take the key" | md.bold | md.task,
 	"Cat food" | md.bold | md.task_check
 ]
-"""
-md < c | md.codeb("python")
-md < "Running the above code gives:" | md.italic
-exec(c)
-md < md.hline
-
+""")
 
 
 md >> "README"
-
-
-
-
-
-
-
-# md < "quote" | md.quote
-
-# md < "fbgencer" | md.chapter
-
-
-
-
-# # Table of Contents
-# # ==
-
-# # - [Overview](#overview)
-# # - [Features](#features)
-# #     - [Writing and Reading Files](#writing-and-reading-files)
-# #     - [Markdown](#markdown)    
-# # - [Installation](#installation)
-# # - [Markdown File Example](#markdown-file-example)

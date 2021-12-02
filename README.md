@@ -2,29 +2,72 @@
 
 ![](markdownipy_logo.png)
 
-Markdownipy is a simple library to create fast markdown files using only two operators
+Markdownipy is a simple Python library to generate fast markdown files using only two operators and some helpers
 
- '<' sends text to markdown file, '|' just gives property to the text
+##  `<` write text to markdown file, `|` just gives property to the text
 
 Even this README file is written with markdownipy!
+
+[Checkout example file](./example.py)
 
 ## Motivation
 
 ---
 
 
-Lately, I'm trying to generate markdown documentations for different codes and I needed to put
-some specs, numbers etc. Instead of text manipulation I just wanted to make it as a library.
-Sometimes I also forget markdown syntax, so this library is intended as easy as its suppose to be.
+Lately, I'm trying to write markdown documentations for different codes and I needed to put
+some specs, numbers etc. so just copy-paste some tables, links.
+I was trying to change some predefined strings to speed up my writing process, yet
+instead of text manipulation I just wanted to make it as a library.
 
+Sometimes I also forget markdown syntax, so this library requires no memory (I hope so) :)
+
+
+### Quick start
 
 ```python
+import markdownipy
+
 md = markdownipy.markdownipy()
+
+#Simple line
+md < "Hello there!"
+
+#Bold text, numbers are also allowed
+md < 3.14159 | md.bold
+
+#Italic text
+md < "Above bold text is just some digits of pi" | md.italic
+
+#Lists 
+md < ["Item1","Item2","Item3"]
+
+#Tables
+md < {
+	"Country":["Fran","Kate","Ivan"],
+	"Age" : [30,48,73]
+}
+
+#E-mail, links
+md < "fbgencer8@gmail.com" | md.link
+
+#Image
+md < "markdownipy_logo.png" | md.image
+
+#Writing to a file, README or README.md both works!
+md >> "README"
 ```
+
+---
+
+---
 
 ### Headers
 
+
+
 ```python
+md < "This is a chapter" | md.chapter
 md < "This is header1" | md.h1
 md < "This is header2" | md.h2
 md < "This is header3" | md.h3
@@ -33,7 +76,12 @@ md < "This is header5" | md.h5
 md < "This is header6" | md.h6
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
+
+This is a chapter
+===
 
 # This is header1
 
@@ -49,7 +97,11 @@ _Running the above code gives:_
 
 ---
 
+---
+
 ### Bold, italic, strikethrough texts
+
+
 
 ```python
 md < "This should be a bold text" | md.bold
@@ -57,7 +109,9 @@ md < "This is an italic text" | md.italic
 md < "Strikethrough is banned"  | md.strike
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 __This should be a bold text__
 
@@ -67,7 +121,11 @@ _This is an italic text_
 
 ---
 
+---
+
 ### Lists
+
+
 
 ```python
 md < [
@@ -88,7 +146,15 @@ md < [
 			"Lists can be nested :)",
 			"This is another liner",
 			[
-				"Oh this is getting serious" | md.strike
+				"Oh this is getting serious" | md.strike,
+				"And now bunch of numbers",
+				[
+					3.1415,
+					2.7176,
+					99999,
+					88888
+				],
+				"Now another item"
 			],
 		],
 		"Quantum statistical mechanics"
@@ -99,7 +165,9 @@ md < [
 ]
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 1. __Classical mechanics__
 
@@ -125,6 +193,18 @@ _Running the above code gives:_
 
 			1. ~~Oh this is getting serious~~
 
+			2. And now bunch of numbers
+
+				1. 3.1415
+
+				2. 2.7176
+
+				3. 99999
+
+				4. 88888
+
+			4. Now another item
+
 	* Quantum statistical mechanics
 
 8. Optics and acoustics
@@ -135,7 +215,11 @@ _Running the above code gives:_
 
 ---
 
+---
+
 ### Table
+
+
 
 ```python
 md < {
@@ -144,7 +228,9 @@ md < {
 }
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 |Name|Surname|
 |:---:|:---:|
@@ -154,43 +240,65 @@ _Running the above code gives:_
 
 ---
 
+---
+
 ### Links
+
+
 
 ```python
 md < "https://github.com/fbgencer/markdownipy" | md.link("Markdownipy website")
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 [Markdownipy website](https://github.com/fbgencer/markdownipy)
 
 ---
 
+---
+
 ### Image
+
+
 
 ```python
 md < ("markdownipy_logo.png" | md.image("Image name"))
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 ![Image name](markdownipy_logo.png)
 
 ---
 
+---
+
 ### Single line Quote
+
+
 
 ```python
 md << ("With Great Power Comes Great Responsibility" | md.quote)
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 > With Great Power Comes Great Responsibility
 
 ---
 
+---
+
 ### Task lists
+
+
 
 ```python
 md < ["-", 
@@ -199,11 +307,15 @@ md < ["-",
 ]
 ```
 
-_Running the above code gives:_
+_Output :_
+
+---
 
 - [ ] __Take the key__
 
 - [x] __Cat food__
+
+---
 
 ---
 
