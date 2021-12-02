@@ -6,7 +6,7 @@ md << ("Markdownipy" | md.h1)
 md < ("markdownipy_logo.png" | md.image)
 md < "Markdownipy is a simple Python library to generate fast markdown files using only two operators and some helpers"
 md < " `<` writes text to markdown file, `|` just gives property to the text" | md.h2
-md < "Even this README file is written with markdownipy!"
+md < "Even this README file is genereted by markdownipy!"
 md < "./example.py" | md.link("Checkout example file")
 
 md < "Motivation" | md.h2
@@ -24,8 +24,7 @@ Only requirement is remember properties of markdown and the rest will be handled
 #Quick start
 md < "Quick start" | md.h3
 c = """
-import markdownipy
-
+from markdownipy import markdownipy
 md = markdownipy.markdownipy()
 
 #Simple line
