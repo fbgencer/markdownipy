@@ -4,7 +4,7 @@
 
 Markdownipy is a simple Python library to generate fast markdown files using only two operators and some helpers
 
-##  `<` write text to markdown file, `|` just gives property to the text
+##  `<` writes text to markdown file, `|` just gives property to the text
 
 Even this README file is written with markdownipy!
 
@@ -21,6 +21,7 @@ I was trying to change some predefined strings to speed up my writing process, y
 instead of text manipulation I just wanted to make it as a library.
 
 Sometimes I also forget markdown syntax, so this library requires no memory (I hope so) :)
+Only requirement is remember properties of markdown and the rest will be handled
 
 
 ### Quick start
@@ -39,6 +40,15 @@ md < 3.14159 | md.bold
 #Italic text
 md < "Above bold text is just some digits of pi" | md.italic
 
+#One line code and codeblock
+
+md < "One line code " | md.code
+md < '''
+void markdownipy_helper(int x, int y, int z):
+	return x*y*z
+''' | md.codeb("cpp")
+
+
 #Lists 
 md < ["Item1","Item2","Item3"]
 
@@ -50,6 +60,7 @@ md < {
 
 #E-mail, links
 md < "fbgencer8@gmail.com" | md.link
+md < "fbgencer8@gmail.com" | md.link("My mail")
 
 #Image
 md < "markdownipy_logo.png" | md.image

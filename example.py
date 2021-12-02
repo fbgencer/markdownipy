@@ -1,7 +1,6 @@
-import markdownipy
+import src.markdownipy.markdownipy as markdownipy
 
 md = markdownipy.markdownipy()
-
 
 md << ("Markdownipy" | md.h1)
 md < ("markdownipy_logo.png" | md.image)
@@ -19,6 +18,7 @@ I was trying to change some predefined strings to speed up my writing process, y
 instead of text manipulation I just wanted to make it as a library.
 
 Sometimes I also forget markdown syntax, so this library requires no memory (I hope so) :)
+Only requirement is remember properties of markdown and the rest will be handled
 """
 
 #Quick start
@@ -36,6 +36,15 @@ md < 3.14159 | md.bold
 
 #Italic text
 md < "Above bold text is just some digits of pi" | md.italic
+
+#One line code and codeblock
+
+md < "One line code " | md.code
+md < '''
+void markdownipy_helper(int x, int y, int z):
+	return x*y*z
+''' | md.codeb("cpp")
+
 
 #Lists 
 md < ["Item1","Item2","Item3"]
@@ -59,6 +68,7 @@ md >> "README"
 md < c | md.codeb("python")
 md < md.hline
 md < md.hline
+
 
 
 

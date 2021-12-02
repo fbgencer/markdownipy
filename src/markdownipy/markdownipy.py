@@ -1,10 +1,9 @@
-import os,sys
-
-
+__version__ = "1.0.0"
+__VERSION__ = __version__
 
 class markdownipy:
 
-	class emphasis:
+	class lineprop:
 		def __init__(self,format,callable_format=None,on_text=lambda f:f):
 			self.line_format = format
 			self.line_format_c = callable_format
@@ -36,37 +35,37 @@ class markdownipy:
 			return self
 			
 
-	bold = emphasis("__{t}__")
+	bold = lineprop("__{t}__")
 	b = bold
-	italic = emphasis("_{t}_")
+	italic = lineprop("_{t}_")
 	i = italic
-	strike = emphasis("~~{t}~~")
+	strike = lineprop("~~{t}~~")
 
-	code = emphasis('`{t}`')
-	codeb = emphasis('```{t}```','```{args[0]}{t}```')
-	h1 = emphasis('#'*1+' {t}')
-	h2 = emphasis('#'*2+' {t}')
-	h3 = emphasis('#'*3+' {t}')
-	h4 = emphasis('#'*4+' {t}')
-	h5 = emphasis('#'*5+' {t}')
-	h6 = emphasis('#'*6+' {t}')
+	code = lineprop('`{t}`')
+	codeb = lineprop('```{t}```','```{args[0]}{t}```')
+	h1 = lineprop('#'*1+' {t}')
+	h2 = lineprop('#'*2+' {t}')
+	h3 = lineprop('#'*3+' {t}')
+	h4 = lineprop('#'*4+' {t}')
+	h5 = lineprop('#'*5+' {t}')
+	h6 = lineprop('#'*6+' {t}')
 
-	chapter = emphasis('{t}\n===')
+	chapter = lineprop('{t}\n===')
 
-	hline = emphasis('---')
-	link = emphasis('<{t}>','[{args[0]}]({t})')
-	image = emphasis('![]({t})','![{args[0]}]({t})')
+	hline = lineprop('---')
+	link = lineprop('<{t}>','[{args[0]}]({t})')
+	image = lineprop('![]({t})','![{args[0]}]({t})')
 
-	#emphasis('','')
-	ref = emphasis('','[{args[0]}]({t})',on_text=lambda t:t.lower().replace(' ','-'))
+	#lineprop('','')
+	ref = lineprop('','[{args[0]}]({t})',on_text=lambda t:t.lower().replace(' ','-'))
 
-	_list = emphasis('','{args[0]}{args[1]} {t}')
+	_list = lineprop('','{args[0]}{args[1]} {t}')
 
-	para = emphasis('{t}\n\n','')
-	task = emphasis('[ ] {t}')
-	task_check = emphasis('[x] {t}')
+	para = lineprop('{t}\n\n','')
+	task = lineprop('[ ] {t}')
+	task_check = lineprop('[x] {t}')
 
-	quote = emphasis("> {t}")
+	quote = lineprop("> {t}")
 
 	available_bullets = ['*','-']
 
@@ -79,7 +78,7 @@ class markdownipy:
 			self.put(x | self.para)
 		elif(isinstance(x,list)):
 			self.lists(x)
-		elif(isinstance(x,self.emphasis)):
+		elif(isinstance(x,self.lineprop)):
 			self << str(x.line_format) # careful for recursive
 		elif(isinstance(x,dict)):
 			self.table(x)
