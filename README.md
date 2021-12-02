@@ -6,7 +6,7 @@ Markdownipy is a simple Python library to generate fast markdown files using onl
 
 ##  `<` writes text to markdown file, `|` just gives property to the text
 
-Even this README file is written with markdownipy!
+Even this README file is genereted by markdownipy!
 
 [Checkout example file](./example.py)
 
@@ -24,11 +24,18 @@ Sometimes I also forget markdown syntax, so this library requires no memory (I h
 Only requirement is remember properties of markdown and the rest will be handled
 
 
+---
+
+### Install
+
+`pip install markdownipy`
+
+---
+
 ### Quick start
 
 ```python
-import markdownipy
-
+from markdownipy import markdownipy
 md = markdownipy.markdownipy()
 
 #Simple line

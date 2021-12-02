@@ -21,6 +21,10 @@ Sometimes I also forget markdown syntax, so this library requires no memory (I h
 Only requirement is remember properties of markdown and the rest will be handled
 """
 
+md < md.hline
+md < "Install" | md.h3
+md < "pip install markdownipy" | md.code
+md < md.hline
 #Quick start
 md < "Quick start" | md.h3
 c = """
