@@ -2,7 +2,7 @@
 
 ![](markdownipy_logo.png)
 
-Markdownipy is a simple Python library to generate fast markdown files using only two operators and some helpers
+Markdownipy is a Python library to generate markdown files using only two operators and some helpers
 
 ##  `<` writes text to markdown file, `|` just gives property to the text
 
@@ -20,7 +20,8 @@ some specs, numbers etc. so just copy-paste some tables, links.
 I was trying to change some predefined strings to speed up my writing process, yet
 instead of text manipulation I just wanted to make it as a library.
 
-Sometimes I also forget markdown syntax, so this library requires no memory (I hope so) :)
+Sometimes I also forget markdown syntax, so this library requires no memory (I hope so, there is even no function calls) :)
+
 Only requirement is remember properties of markdown and the rest will be handled
 
 
@@ -75,6 +76,30 @@ md < "markdownipy_logo.png" | md.image
 #Writing to a file, README or README.md both works!
 md >> "README"
 ```
+
+---
+
+### Library keywords
+
+|Keywords|Explanation|Markdown|
+|:---:|:---:|:---:|
+|md.bold|Bold text|`__text__`|
+|md.italic|Italic text|`_text_`|
+|md.strike|Strikethrough text|`~~text~~`|
+|md.code|For single line code|` `code` `|
+|md.codeb|Code fence, takes optional arg as language name|` ```code``` `|
+|md.link or md.link(link_name)|Link text|`[link_name(optional)](link)`|
+|md.hline|Horizontal line|`---`|
+|md.chapter|Chapter|`Chapter_name\n===`|
+|md.h1|Header level 1|`# Header1`|
+|md.h2|Header level 2|`## Header2`|
+|md.h3|Header level 3|`### Header3`|
+|md.h4|Header level 4|`#### Header4`|
+|md.h5|Header level 5|`##### Header5`|
+|md.h6|Header level 6|`###### Header6`|
+|md.image or md.image(image_name)|Image insertion|`![image_name(optional)](image_path)`|
+|md.task|Task entry in a list|`[ ] text`|
+|md.task_check|Checked task entry in a list|`[x] text`|
 
 ---
 
