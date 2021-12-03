@@ -74,6 +74,10 @@ class markdownipy:
 		self.indent = 0
 	
 	def __lshift__(self,x):
+		"""
+			<< operator on md
+			Puts stuff on string document
+		"""
 		if(isinstance(x,str)):
 			self.put(x | self.para)
 		elif(isinstance(x,list)):
@@ -85,25 +89,51 @@ class markdownipy:
 		else:
 			assert(0)
 
-	def __rshift__(self,file_name:str):
-		if(not file_name.endswith(".md")):
-			file_name += ".md"
-		with open(file_name,"w+") as f:
-			f.write(self.doc)
+	def __rshift__(self,file_name):
+		"""
+			Filename can be string with md or just a name
+			sys.stdout is also allowed for printing
+		"""
+		import sys
+		if(isinstance(file_name,str)):
+			if(not file_name.endswith(".md")):
+				file_name += ".md"
+			with open(file_name,"w+") as f:
+				f.write(self.doc)
+		elif(file_name == sys.stdout):
+			file_name.write(self.doc)
+		else:
+			raise Exception("file_name can be string or sys.stdout")
 
 	def __lt__(self,x):
+		"""
+			< operator on md
+			just calls the main operator '<<'
+		"""
 		return self << x
 	
 	def __gt__(self,x):
+		"""
+			> operator on md
+			just calls the main operator '>>'
+		"""
 		return self >> x
 
 	def put(self,x):
+		"""
+			Just adds items to string doc
+		"""
 		self.doc += x
+	
+	def print(self):
+		"""
+			Returns the doc
+		"""
+		return self.doc
 
 	def bullets(self,str_list,bullet_type='-'):
-		for ln in str_list:
-			line = f"{bullet_type} {ln}\n"
-			self.put(line)
+		ls = [bullet_type,*str_list]
+		return self << ls
 
 	def lists(self,str_list):
 		x = str_list
@@ -156,3 +186,8 @@ class markdownipy:
 
 		self.put("\n")
 
+	def clear(self):
+		"""
+			Clears the document
+		"""
+		self.doc = ""

@@ -4,11 +4,13 @@
 
 Markdownipy is a Python library to generate markdown files using only two operators and some helpers
 
-##  `<` writes text to markdown file, `|` just gives property to the text
+##  `<`(lower than operator) writes text to markdown file, `|`(pipe operator) just gives property to the text
 
 Even this README file is genereted by markdownipy!
 
 [Checkout example file](./example.py)
+
+Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells, see below for examples
 
 ## Motivation
 
@@ -33,7 +35,7 @@ Only requirement is remember properties of markdown and the rest will be handled
 
 ---
 
-### Quick start
+### Quick start - example Python code
 
 ```python
 from markdownipy import markdownipy
@@ -74,14 +76,35 @@ md < "fbgencer8@gmail.com" | md.link("My mail")
 md < "markdownipy_logo.png" | md.image
 
 #Writing to a file, README or README.md both works!
+#Even md >> sys.stdout prints the whole markdown document
 md >> "README"
 ```
 
 ---
 
+### Quick start - example Jupyter cell
+
+```python
+from markdownipy import markdownipy
+from IPython.display import display,Markdown
+
+md = markdownipy.markdownipy()
+
+md < "hello there" | md.bold
+
+md < "This should be a italic text" | md.italic
+display(Markdown(md.print()))
+```
+
+__See the example jupter notebook output:__ [Example jupyter file](jupyter_example.ipynb)
+
+---
+
 ### Library keywords
 
-|Keywords|Explanation|Markdown|
+This table is the whole documentation of markdownipy! (Assuming md is the markdown object in python)
+
+|Keywords|Explanation|Markdown equivalent|
 |:---:|:---:|:---:|
 |md.bold|Bold text|`__text__`|
 |md.italic|Italic text|`_text_`|
@@ -100,6 +123,12 @@ md >> "README"
 |md.image or md.image(image_name)|Image insertion|`![image_name(optional)](image_path)`|
 |md.task|Task entry in a list|`[ ] text`|
 |md.task_check|Checked task entry in a list|`[x] text`|
+|`object` \| md.`keyword`|Pipes the above defined line property keywords to the object||
+|md < `object`|Adds any object to document (str,dict,list,numbers etc.)||
+|md > `file_name`|Writes document to a file||
+|md > `stdout`|Prints the document to console||
+|md.print()|Returns the markdown document as string||
+|md.clear()|Clears the markdown document||
 
 ---
 

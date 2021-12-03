@@ -5,9 +5,10 @@ md = markdownipy.markdownipy()
 md << ("Markdownipy" | md.h1)
 md < ("markdownipy_logo.png" | md.image)
 md < "Markdownipy is a Python library to generate markdown files using only two operators and some helpers"
-md < " `<` writes text to markdown file, `|` just gives property to the text" | md.h2
+md < " `<`(lower than operator) writes text to markdown file, `|`(pipe operator) just gives property to the text" | md.h2
 md < "Even this README file is genereted by markdownipy!"
 md < "./example.py" | md.link("Checkout example file")
+md < "Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells, see below for examples"
 
 md < "Motivation" | md.h2
 md < md.hline
@@ -29,8 +30,8 @@ md < md.hline
 
 
 
-#Quick start
-md < "Quick start" | md.h3
+#Quick start - python
+md < "Quick start - example Python code" | md.h3
 c = """
 from markdownipy import markdownipy
 md = markdownipy.markdownipy()
@@ -70,10 +71,29 @@ md < "fbgencer8@gmail.com" | md.link("My mail")
 md < "markdownipy_logo.png" | md.image
 
 #Writing to a file, README or README.md both works!
+#Even md >> sys.stdout prints the whole markdown document
 md >> "README"
 """
 md < c | md.codeb("python")
 md < md.hline
+
+#Quick start - jupyter
+md < "Quick start - example Jupyter cell" | md.h3
+c = """
+from markdownipy import markdownipy
+from IPython.display import display,Markdown
+
+md = markdownipy.markdownipy()
+
+md < "hello there" | md.bold
+
+md < "This should be a italic text" | md.italic
+display(Markdown(md.print()))
+"""
+md < c | md.codeb("python")
+md < ("See the example jupter notebook output:" | md.bold) +" " + ("jupyter_example.ipynb" | md.link("Example jupyter file")) 
+md < md.hline
+
 
 table_list = [ 
 	("md.bold","Bold text", "`__text__`"),
@@ -93,14 +113,21 @@ table_list = [
 	("md.image or md.image(image_name)","Image insertion",'`![image_name(optional)](image_path)`'),
 	("md.task","Task entry in a list",'`[ ] text`'),
 	("md.task_check","Checked task entry in a list",'`[x] text`'),
+	("`object` \| md.`keyword`","Pipes the above defined line property keywords to the object",''),
+	("md < `object`","Adds any object to document (str,dict,list,numbers etc.)",''),
+	("md > `file_name`","Writes document to a file",''),
+	("md > `stdout`","Prints the document to console",''),
+	("md.print()","Returns the markdown document as string",''),
+	("md.clear()","Clears the markdown document",''),
 ]
 
 md < "Library keywords" | md.h3
-table = {"Keywords":[],"Explanation":[],"Markdown":[]}
+md < "This table is the whole documentation of markdownipy! (Assuming md is the markdown object in python)"
+table = {"Keywords":[],"Explanation":[],"Markdown equivalent":[]}
 for entry in table_list:
 	table["Keywords"].append(entry[0])
 	table["Explanation"].append(entry[1])
-	table["Markdown"].append(entry[2])
+	table["Markdown equivalent"].append(entry[2])
 md < table
 md < md.hline
 md < md.hline
