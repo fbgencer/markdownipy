@@ -4,13 +4,13 @@
 
 Markdownipy is a Python library to generate markdown files using only two operators and some helpers
 
+Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells or inside any .py file, see below for examples
+
 ##  `<`(lower than operator) writes text to markdown file, `|`(pipe operator) just gives property to the text
 
 Even this README file is genereted by markdownipy!
 
 [Checkout example file](./example.py)
-
-Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells, see below for examples
 
 ## Motivation
 
@@ -24,7 +24,7 @@ instead of text manipulation I just wanted to make it as a library.
 
 Sometimes I also forget markdown syntax, so this library requires no memory (I hope so, there is even no function calls) :)
 
-Only requirement is remember properties of markdown and the rest will be handled
+Only requirement is remembering the properties of markdownipy and the rest will be handled
 
 
 ---
@@ -32,6 +32,24 @@ Only requirement is remember properties of markdown and the rest will be handled
 ### Install
 
 `pip install markdownipy`
+
+---
+
+### Quick start - example Jupyter cell
+
+```python
+from markdownipy import markdownipy
+from IPython.display import display,Markdown
+
+md = markdownipy.markdownipy()
+
+md < "hello there" | md.bold
+
+md < "This should be a italic text" | md.italic
+display(Markdown(md.print()))
+```
+
+__See the example jupter notebook output:__ [Example jupyter file](jupyter_example.ipynb)
 
 ---
 
@@ -73,30 +91,12 @@ md < "fbgencer8@gmail.com" | md.link
 md < "fbgencer8@gmail.com" | md.link("My mail")
 
 #Image
-md < "markdownipy_logo.png" | md.image
+md < "./markdownipy_logo.png" | md.image
 
 #Writing to a file, README or README.md both works!
 #Even md >> sys.stdout prints the whole markdown document
 md >> "README"
 ```
-
----
-
-### Quick start - example Jupyter cell
-
-```python
-from markdownipy import markdownipy
-from IPython.display import display,Markdown
-
-md = markdownipy.markdownipy()
-
-md < "hello there" | md.bold
-
-md < "This should be a italic text" | md.italic
-display(Markdown(md.print()))
-```
-
-__See the example jupter notebook output:__ [Example jupyter file](jupyter_example.ipynb)
 
 ---
 

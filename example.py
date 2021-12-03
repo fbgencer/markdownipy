@@ -5,10 +5,10 @@ md = markdownipy.markdownipy()
 md << ("Markdownipy" | md.h1)
 md < ("markdownipy_logo.png" | md.image)
 md < "Markdownipy is a Python library to generate markdown files using only two operators and some helpers"
+md < "Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells or inside any .py file, see below for examples"
 md < " `<`(lower than operator) writes text to markdown file, `|`(pipe operator) just gives property to the text" | md.h2
 md < "Even this README file is genereted by markdownipy!"
 md < "./example.py" | md.link("Checkout example file")
-md < "Markdownipy can be used in jupyter notebooks to generate markdown outputs in python cells, see below for examples"
 
 md < "Motivation" | md.h2
 md < md.hline
@@ -20,7 +20,7 @@ instead of text manipulation I just wanted to make it as a library.
 
 Sometimes I also forget markdown syntax, so this library requires no memory (I hope so, there is even no function calls) :)
 
-Only requirement is remember properties of markdown and the rest will be handled
+Only requirement is remembering the properties of markdownipy and the rest will be handled
 """
 
 md < md.hline
@@ -29,6 +29,23 @@ md < "pip install markdownipy" | md.code
 md < md.hline
 
 
+
+#Quick start - jupyter
+md < "Quick start - example Jupyter cell" | md.h3
+c = """
+from markdownipy import markdownipy
+from IPython.display import display,Markdown
+
+md = markdownipy.markdownipy()
+
+md < "hello there" | md.bold
+
+md < "This should be a italic text" | md.italic
+display(Markdown(md.print()))
+"""
+md < c | md.codeb("python")
+md < ("See the example jupter notebook output:" | md.bold) +" " + ("jupyter_example.ipynb" | md.link("Example jupyter file")) 
+md < md.hline
 
 #Quick start - python
 md < "Quick start - example Python code" | md.h3
@@ -68,7 +85,7 @@ md < "fbgencer8@gmail.com" | md.link
 md < "fbgencer8@gmail.com" | md.link("My mail")
 
 #Image
-md < "markdownipy_logo.png" | md.image
+md < "./markdownipy_logo.png" | md.image
 
 #Writing to a file, README or README.md both works!
 #Even md >> sys.stdout prints the whole markdown document
@@ -77,22 +94,6 @@ md >> "README"
 md < c | md.codeb("python")
 md < md.hline
 
-#Quick start - jupyter
-md < "Quick start - example Jupyter cell" | md.h3
-c = """
-from markdownipy import markdownipy
-from IPython.display import display,Markdown
-
-md = markdownipy.markdownipy()
-
-md < "hello there" | md.bold
-
-md < "This should be a italic text" | md.italic
-display(Markdown(md.print()))
-"""
-md < c | md.codeb("python")
-md < ("See the example jupter notebook output:" | md.bold) +" " + ("jupyter_example.ipynb" | md.link("Example jupyter file")) 
-md < md.hline
 
 
 table_list = [ 
